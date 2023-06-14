@@ -26,10 +26,12 @@ class _signinState extends State<signin> {
       'password': password.text.toString(),
     };
 
-    // jalanin function yg di file api dart(koneksin ke laravel database)
+    // jalanin function yg di file buat login(koneksin ke laravel database)
     final result = await API().postRequest(route: '/login', data: data);
+    //bca response
     final Response = jsonDecode(result.body);
     if (Response['status'] == 200) {
+      //shared preferance get instance buat ngambil data
       SharedPreferences preferences = await SharedPreferences.getInstance();
       await preferences.setInt('user_id', Response['user']['siswa']['id']);
       await preferences.setString('name', Response['user']['name']);
