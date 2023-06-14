@@ -19,13 +19,14 @@ class signin extends StatefulWidget {
 class _signinState extends State<signin> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  //deklarasiin controller
   void loginUser() async {
     final data = {
       'email': email.text.toString(),
       'password': password.text.toString(),
     };
 
-    // ngambil api
+    // jalanin function yg di file api dart(koneksin ke laravel database)
     final result = await API().postRequest(route: '/login', data: data);
     final Response = jsonDecode(result.body);
     if (Response['status'] == 200) {
