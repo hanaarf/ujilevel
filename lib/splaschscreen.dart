@@ -74,7 +74,7 @@ class _splashState extends State<splash> {
       nextScreen: const nav(),
       backgroundColor: Color(0xffF5F4F2),
       splashIconSize: 1000,
-      duration: 300,
+      duration: 5000,
       splashTransition: SplashTransition.fadeTransition,
       animationDuration: const Duration(seconds: 5),
     );

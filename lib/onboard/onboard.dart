@@ -31,7 +31,7 @@ class _OnBoardState extends State<OnBoard> {
     OnboardModel(
       img: 'assets/img/onboard3.png',
       text: "With DeepMind",
-      desc: "We support organization in improving the mental health",
+      desc: "record your mood in real-time ",
       bg: Colors.white,
       button: Color(0xFF09143A),
     ),
