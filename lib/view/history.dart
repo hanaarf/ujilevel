@@ -22,6 +22,7 @@ class _historyState extends State<history> {
     getUserData();
   }
 
+//function ambil data user
   void getUserData() async {
     setState(() {
       isLoading = true;
@@ -33,13 +34,14 @@ class _historyState extends State<history> {
     });
   }
 
+//ngambil data jadwal
   Future getBuku() async {
     preferences = await SharedPreferences.getInstance();
     int userId = preferences.getInt('user_id') ??
         0; // Default value jika 'user_id' tidak ditemukan
     String id = userId.toString();
     final String url =
-        'https://907a-45-126-186-6.ngrok-free.app/api/auth/siswa?id=' + id;
+        'https://9de7-117-102-67-66.ngrok-free.app/api/auth/siswa?id=' + id;
     var respone = await http.get(Uri.parse(url));
     var jsonResponse = jsonDecode(respone.body);
     if (respone.statusCode == 200) {

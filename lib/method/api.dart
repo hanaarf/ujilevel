@@ -7,7 +7,7 @@ class API {
     required String route,
     required Map<String, String> data,
   }) async {
-    final String apiUrl = 'https://907a-45-126-186-6.ngrok-free.app/api/auth';
+    final String apiUrl = 'https://9de7-117-102-67-66.ngrok-free.app/api/auth';
 
     String url = apiUrl + route;
 
