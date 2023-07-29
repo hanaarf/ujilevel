@@ -5,6 +5,7 @@ import 'package:ujilevel/signin.dart';
 import 'package:ujilevel/onboard/onboard.dart';
 import 'package:ujilevel/view/consultant/consul.dart';
 import 'package:ujilevel/splaschscreen.dart';
+import 'package:ujilevel/view/create.dart';
 import 'package:ujilevel/view/homescr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +29,8 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:FutureBuilder(
+      home:
+      FutureBuilder(
           future: SharedPreferences.getInstance(), //memanggil fungsi nya
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

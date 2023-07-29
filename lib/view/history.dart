@@ -41,7 +41,7 @@ class _historyState extends State<history> {
         0; // Default value jika 'user_id' tidak ditemukan
     String id = userId.toString();
     final String url =
-        'https://9de7-117-102-67-66.ngrok-free.app/api/auth/siswa?id=' + id;
+        'https://95d7-117-102-67-66.ngrok-free.app/api/auth/siswa?id=' + id;
     var respone = await http.get(Uri.parse(url));
     var jsonResponse = jsonDecode(respone.body);
     if (respone.statusCode == 200) {

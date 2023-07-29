@@ -39,6 +39,7 @@ dependencies:
   http: ^0.13.6
   animated_splash_screen: ^1.1.0
   lottie: ^2.3.1
+  calendar_date_picker2: ^0.5.2
 
 dev_dependencies:
   flutter_test:
