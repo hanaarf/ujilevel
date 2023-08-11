@@ -40,6 +40,7 @@ dependencies:
   animated_splash_screen: ^1.1.0
   lottie: ^2.3.1
   calendar_date_picker2: ^0.5.2
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +95,8 @@ flutter:
     - assets/img/pa_gunawan.png
     - assets/img/bucc.png
     - assets/img/buhen.png
+    - assets/img/hero5.png
+    - assets/img/logodeep.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:ujilevel/view/create.dart';
+
 class history extends StatefulWidget {
   const history({super.key});
 
@@ -41,7 +43,7 @@ class _historyState extends State<history> {
         0; // Default value jika 'user_id' tidak ditemukan
     String id = userId.toString();
     final String url =
-        'https://95d7-117-102-67-66.ngrok-free.app/api/auth/siswa?id=' + id;
+        'http://127.0.0.1:8000/api/auth/siswa?id=' + id;
     var respone = await http.get(Uri.parse(url));
     var jsonResponse = jsonDecode(respone.body);
     if (respone.statusCode == 200) {
@@ -110,20 +112,72 @@ class _historyState extends State<history> {
                           ),
                         ),
                         Container(
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.fromLTRB(23, 10, 0, 0),
+                          child: Container(
+                           margin: EdgeInsets.only(right: 10,top: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(left: 15),
+                                  child: Text(
+                                    "history",
+                                    style: TextStyle(
+                                        color: Color(0xff09143A),
+                                        fontFamily: 'Poppins',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                SizedBox(
+                            width: 120,
+                            height: 35,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor: Color(0xff3D5A67),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
                               ),
-                              Text(
-                                "History",
-                                style: TextStyle(
-                                    color: Color(0xff09143A),
-                                    fontFamily: 'Poppins',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                              onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Create()),
+                                          );
+                                        },
+                              child: InkWell(
+                                onTap: () {
+                                  // loginUser();
+                                },
+                                child: const Text(
+                                  "Create",
+                                  style: TextStyle(
+                                      color: Color(0xffffffff),
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400),
+                                ),
                               ),
-                            ],
+                            )),
+                             
+                                // Container(
+                                //           child: IconButton(
+                                //         icon: Icon(
+                                //           Icons.account_circle,
+                                //           color: Colors.grey,
+                                //           size: 40,
+                                //         ),
+                                //         onPressed: () {
+                                //           Navigator.push(
+                                //             context,
+                                //             MaterialPageRoute(
+                                //                 builder: (context) =>
+                                //                     DataSiswa()),
+                                //           );
+                                //         },
+                                //       )),
+                              ],
+                            ),
                           ),
                         ),
                         Container(
@@ -356,7 +410,7 @@ class _historyState extends State<history> {
                                                       child: Column(
                                                         children: [
                                                           Text(
-                                                            "Cancel",
+                                                            "Update",
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.white,
@@ -393,7 +447,7 @@ class _historyState extends State<history> {
                                                           child: Column(
                                                             children: [
                                                               Text(
-                                                                "Detail",
+                                                                "Delete",
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:ujilevel/profile/profile.dart';
 import 'package:ujilevel/view/consultant/consul.dart';
 import 'package:ujilevel/view/favorite.dart';
 import 'package:ujilevel/view/history.dart';
@@ -16,10 +17,10 @@ class nav extends StatefulWidget {
 class _navState extends State<nav> {
   int selected_index = 0;
   List<Widget> _widgetOptions = <Widget>[
-    homescr(),
+    home(),
     consul(),
     history(),
-    favorite()
+    DataSiswa()
   ];
 
   void _onItemTap(int index) {
@@ -55,11 +56,11 @@ class _navState extends State<nav> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.add_chart, size: 20,),
-              label: 'History',
+              label: 'Schedule',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite, size: 20,),
-              label: 'Favorite',
+              icon: Icon(Icons.person, size: 20,),
+              label: 'Profile',
             ),
           ],
           onTap: _onItemTap,

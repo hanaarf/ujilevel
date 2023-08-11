@@ -6,8 +6,10 @@ import 'package:ujilevel/onboard/onboard.dart';
 import 'package:ujilevel/view/consultant/consul.dart';
 import 'package:ujilevel/splaschscreen.dart';
 import 'package:ujilevel/view/create.dart';
+import 'package:ujilevel/view/history.dart';
 import 'package:ujilevel/view/homescr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ujilevel/view/selfhelp.dart';
 
 
 void main() {
@@ -30,6 +32,10 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home:
+      // const Scaffold(
+      //   body: Create(),
+      // ),
+
       FutureBuilder(
           future: SharedPreferences.getInstance(), //memanggil fungsi nya
           builder: (context, snapshot) {
