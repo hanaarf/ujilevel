@@ -41,6 +41,7 @@ dependencies:
   lottie: ^2.3.1
   calendar_date_picker2: ^0.5.2
   intl: ^0.18.1
+  table_calendar: ^3.0.9
 
 dev_dependencies:
   flutter_test:
@@ -66,37 +67,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/img/1.png
-    - assets/img/2.png
-    - assets/img/bintang.png
-    - assets/img/logo.png
-    - assets/img/onboard1.png
-    - assets/img/onboard2.png
-    - assets/img/onboard3.png
-    - assets/img/onboard4.png
-    - assets/img/profile.png
-    - assets/img/profile1.png
-    - assets/img/siswa.png
-    - assets/img/siswasma.png
-    - assets/img/sosial.png
-    - assets/img/srch.png
-    - assets/img/hallo.png
-    - assets/img/hero5.png
-    - assets/img/karir2.png
-    - assets/img/list.png
-    - assets/img/ap.png
-    - animations/
-    - assets/img/bu caca.png
-    - assets/img/bu_heny.jpg
-    - assets/img/bu_shey.png
-    - assets/img/pagunawan.png
-    - assets/img/busheyla.png
-    - assets/img/buheny.png
-    - assets/img/pa_gunawan.png
-    - assets/img/bucc.png
-    - assets/img/buhen.png
-    - assets/img/hero5.png
-    - assets/img/logodeep.png
+    - assets/img/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ujilevel/view/history.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Create extends StatefulWidget {
   const Create({super.key});
@@ -30,15 +32,22 @@ class _CreateState extends State<Create> {
   TextEditingController _tempatController = TextEditingController();
   int _selectedJenisKonseling = 1; // Default value
 
+  late SharedPreferences preferences;
   Future saveProduct() async {
+      preferences = await SharedPreferences.getInstance();
+      int userId = preferences.getInt('user_id') ??
+      0;
+
+      String id = userId.toString();
+
     final response = await http.post(
       Uri.parse("http://127.0.0.1:8000/api/auth/store"), body: {
+      "id_siswa": id,
       "deskripsi": _deskripsiController.text,
       'jeniskonseling_id': _selectedJenisKonseling.toString(),
-      "siswa_id": _siswa_idController.text,
-      "gurubk_id": _gurubk_idController.text,
-      "walas_id": _walas_idController.text,
-      // "status": _statusController.text,
+      // "siswa_id": _siswa_idController.text,
+      // "gurubk_id": _gurubk_idController.text,
+      // "walas_id": _walas_idController.text,
       "tanggal": _date.text,
       "jam": _jamController.text,
       "tempat": _tempatController.text,
@@ -183,105 +192,105 @@ class _CreateState extends State<Create> {
                   ),
 
                  
-                  Container(
-                    padding:
-                        const EdgeInsets.only(left: 35, right: 35, top: 20),
-                    child: TextFormField(
-                      controller: _siswa_idController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            // enabledBorder: UnderlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 3,
-                                color: Color(0xffBFD1DD)), //<-- SEE HERE
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            // enabledBorder: UnderlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 3,
-                                color: Color(0xffBFD1DD)), //<-- SEE HERE
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          labelText: 'siswa',
-                          hintStyle: const TextStyle(
-                              color: Color(0xff454545),
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500)),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "masukan tesk";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Container(
-                    padding:
-                        const EdgeInsets.only(left: 35, right: 35, top: 20),
-                    child: TextFormField(
-                      controller: _gurubk_idController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            // enabledBorder: UnderlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 3,
-                                color: Color(0xffBFD1DD)), //<-- SEE HERE
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            // enabledBorder: UnderlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 3,
-                                color: Color(0xffBFD1DD)), //<-- SEE HERE
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          labelText: 'gurubk',
-                          hintStyle: const TextStyle(
-                              color: Color(0xff454545),
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500)),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "masukan tesk";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Container(
-                    padding:
-                        const EdgeInsets.only(left: 35, right: 35, top: 20),
-                    child: TextFormField(
-                      controller: _walas_idController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            // enabledBorder: UnderlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 3,
-                                color: Color(0xffBFD1DD)), //<-- SEE HERE
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            // enabledBorder: UnderlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 3,
-                                color: Color(0xffBFD1DD)), //<-- SEE HERE
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          labelText: 'walas',
-                          hintStyle: const TextStyle(
-                              color: Color(0xff454545),
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500)),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "masukan tesk";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
+                  // Container(
+                  //   padding:
+                  //       const EdgeInsets.only(left: 35, right: 35, top: 20),
+                  //   child: TextFormField(
+                  //     controller: _siswa_idController,
+                  //     decoration: InputDecoration(
+                  //         focusedBorder: OutlineInputBorder(
+                  //           // enabledBorder: UnderlineInputBorder(
+                  //           borderSide: const BorderSide(
+                  //               width: 3,
+                  //               color: Color(0xffBFD1DD)), //<-- SEE HERE
+                  //           borderRadius: BorderRadius.circular(50.0),
+                  //         ),
+                  //         enabledBorder: OutlineInputBorder(
+                  //           // enabledBorder: UnderlineInputBorder(
+                  //           borderSide: const BorderSide(
+                  //               width: 3,
+                  //               color: Color(0xffBFD1DD)), //<-- SEE HERE
+                  //           borderRadius: BorderRadius.circular(50.0),
+                  //         ),
+                  //         labelText: 'siswa',
+                  //         hintStyle: const TextStyle(
+                  //             color: Color(0xff454545),
+                  //             fontFamily: 'Poppins',
+                  //             fontWeight: FontWeight.w500)),
+                  //     validator: (value) {
+                  //       if (value == null || value.isEmpty) {
+                  //         return "masukan tesk";
+                  //       }
+                  //       return null;
+                  //     },
+                  //   ),
+                  // ),
+                  // Container(
+                  //   padding:
+                  //       const EdgeInsets.only(left: 35, right: 35, top: 20),
+                  //   child: TextFormField(
+                  //     controller: _gurubk_idController,
+                  //     decoration: InputDecoration(
+                  //         focusedBorder: OutlineInputBorder(
+                  //           // enabledBorder: UnderlineInputBorder(
+                  //           borderSide: const BorderSide(
+                  //               width: 3,
+                  //               color: Color(0xffBFD1DD)), //<-- SEE HERE
+                  //           borderRadius: BorderRadius.circular(50.0),
+                  //         ),
+                  //         enabledBorder: OutlineInputBorder(
+                  //           // enabledBorder: UnderlineInputBorder(
+                  //           borderSide: const BorderSide(
+                  //               width: 3,
+                  //               color: Color(0xffBFD1DD)), //<-- SEE HERE
+                  //           borderRadius: BorderRadius.circular(50.0),
+                  //         ),
+                  //         labelText: 'gurubk',
+                  //         hintStyle: const TextStyle(
+                  //             color: Color(0xff454545),
+                  //             fontFamily: 'Poppins',
+                  //             fontWeight: FontWeight.w500)),
+                  //     validator: (value) {
+                  //       if (value == null || value.isEmpty) {
+                  //         return "masukan tesk";
+                  //       }
+                  //       return null;
+                  //     },
+                  //   ),
+                  // ),
+                  // Container(
+                  //   padding:
+                  //       const EdgeInsets.only(left: 35, right: 35, top: 20),
+                  //   child: TextFormField(
+                  //     controller: _walas_idController,
+                  //     decoration: InputDecoration(
+                  //         focusedBorder: OutlineInputBorder(
+                  //           // enabledBorder: UnderlineInputBorder(
+                  //           borderSide: const BorderSide(
+                  //               width: 3,
+                  //               color: Color(0xffBFD1DD)), //<-- SEE HERE
+                  //           borderRadius: BorderRadius.circular(50.0),
+                  //         ),
+                  //         enabledBorder: OutlineInputBorder(
+                  //           // enabledBorder: UnderlineInputBorder(
+                  //           borderSide: const BorderSide(
+                  //               width: 3,
+                  //               color: Color(0xffBFD1DD)), //<-- SEE HERE
+                  //           borderRadius: BorderRadius.circular(50.0),
+                  //         ),
+                  //         labelText: 'walas',
+                  //         hintStyle: const TextStyle(
+                  //             color: Color(0xff454545),
+                  //             fontFamily: 'Poppins',
+                  //             fontWeight: FontWeight.w500)),
+                  //     validator: (value) {
+                  //       if (value == null || value.isEmpty) {
+                  //         return "masukan tesk";
+                  //       }
+                  //       return null;
+                  //     },
+                  //   ),
+                  // ),
                   // Container(
                   //   padding:
                   //       const EdgeInsets.only(left: 35, right: 35, top: 20),

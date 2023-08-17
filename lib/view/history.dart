@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:ujilevel/view/create.dart';
+import 'package:ujilevel/view/edit.dart';
 
 class history extends StatefulWidget {
   const history({super.key});
@@ -60,6 +61,12 @@ class _historyState extends State<history> {
     }
   }
 
+  // Future deleteProduct(String productId) async {
+  //   String url =  'http://127.0.0.1:8000/api/auth/jadwal' + productId;
+  //   var response  = await http.delete(Uri.parse(url));
+  //   return json.decode(response.body);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -90,21 +97,7 @@ class _historyState extends State<history> {
                                 child: Row(
                                   children: <Widget>[
                                     Container(
-                                        child: IconButton(
-                                      icon: Icon(
-                                        Icons.account_circle,
-                                        color: Colors.grey,
-                                        size: 40,
-                                      ),
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DataSiswa()),
-                                        );
-                                      },
-                                    )),
+                                        child:  Image.asset('assets/img/logodeep.png')),
                                   ],
                                 ),
                               ),
@@ -409,17 +402,21 @@ class _historyState extends State<history> {
                                                           top: 8),
                                                       child: Column(
                                                         children: [
-                                                          Text(
-                                                            "Update",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Poppins',
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
+                                                          GestureDetector(onTap: () {
+                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => Edit()));
+                                                          },
+                                                            child: Text(
+                                                              "Update",
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors.white,
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
                                                             ),
                                                           ),
                                                         ],
@@ -446,18 +443,27 @@ class _historyState extends State<history> {
                                                                   top: 6),
                                                           child: Column(
                                                             children: [
-                                                              Text(
-                                                                "Delete",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
+                                                              GestureDetector(onTap: (){
+                                                                  // deleteProduct(snapshot.data['data'][index]['id'].toString()).then((value){
+                                                                  //   setState(() {
+                                                                      
+                                                                  //   });
+                                                                  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('product berhasi; dihapus'),));
+                                                                  // });
+                                                              },
+                                                                child: Text(
+                                                                  "Delete",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontSize: 14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ],
