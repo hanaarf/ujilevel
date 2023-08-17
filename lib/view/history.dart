@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:ujilevel/view/create.dart';
+import 'package:ujilevel/view/detail.dart';
 import 'package:ujilevel/view/edit.dart';
 
 class history extends StatefulWidget {
@@ -43,8 +44,7 @@ class _historyState extends State<history> {
     int userId = preferences.getInt('user_id') ??
         0; // Default value jika 'user_id' tidak ditemukan
     String id = userId.toString();
-    final String url =
-        'http://127.0.0.1:8000/api/auth/siswa?id=' + id;
+    final String url = 'http://127.0.0.1:8000/api/auth/siswa?id=' + id;
     var respone = await http.get(Uri.parse(url));
     var jsonResponse = jsonDecode(respone.body);
     if (respone.statusCode == 200) {
@@ -97,7 +97,8 @@ class _historyState extends State<history> {
                                 child: Row(
                                   children: <Widget>[
                                     Container(
-                                        child:  Image.asset('assets/img/logodeep.png')),
+                                        child: Image.asset(
+                                            'assets/img/logodeep.png')),
                                   ],
                                 ),
                               ),
@@ -106,7 +107,7 @@ class _historyState extends State<history> {
                         ),
                         Container(
                           child: Container(
-                           margin: EdgeInsets.only(right: 10,top: 15),
+                            margin: EdgeInsets.only(right: 10, top: 15),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -122,37 +123,37 @@ class _historyState extends State<history> {
                                   ),
                                 ),
                                 SizedBox(
-                            width: 120,
-                            height: 35,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                backgroundColor: Color(0xff3D5A67),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                              onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Create()),
-                                          );
+                                    width: 120,
+                                    height: 35,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Color(0xff3D5A67),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Create()),
+                                        );
+                                      },
+                                      child: InkWell(
+                                        onTap: () {
+                                          // loginUser();
                                         },
-                              child: InkWell(
-                                onTap: () {
-                                  // loginUser();
-                                },
-                                child: const Text(
-                                  "Create",
-                                  style: TextStyle(
-                                      color: Color(0xffffffff),
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ),
-                            )),
-                             
+                                        child: const Text(
+                                          "Create",
+                                          style: TextStyle(
+                                              color: Color(0xffffffff),
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ),
+                                    )),
+
                                 // Container(
                                 //           child: IconButton(
                                 //         icon: Icon(
@@ -230,7 +231,12 @@ class _historyState extends State<history> {
                                                                     .start,
                                                             children: <Widget>[
                                                               Text(
-                                                                snapshot.data['data'][index]['siswaid']['name'],
+                                                                snapshot.data['data']
+                                                                            [
+                                                                            index]
+                                                                        [
+                                                                        'siswaid']
+                                                                    ['name'],
                                                                 style: TextStyle(
                                                                     color: Color(
                                                                         0xFFfFFFFFF),
@@ -243,7 +249,10 @@ class _historyState extends State<history> {
                                                                             .w700),
                                                               ),
                                                               Text(
-                                                                snapshot.data['data'][index]['deskripsi'],
+                                                                snapshot.data[
+                                                                            'data']
+                                                                        [index][
+                                                                    'deskripsi'],
                                                                 style: TextStyle(
                                                                     color: Color(
                                                                         0xFFfFFFFFF),
@@ -258,7 +267,6 @@ class _historyState extends State<history> {
                                                             ],
                                                           ),
                                                         ),
-                                                        
                                                       ],
                                                     ),
                                                   ),
@@ -296,7 +304,8 @@ class _historyState extends State<history> {
                                                       width:
                                                           5), // Menggunakan SizedBox untuk memberikan jarak antara ikon dan teks
                                                   Text(
-                                                    snapshot.data['data'][index]['jam'],
+                                                    snapshot.data['data'][index]
+                                                        ['jam'],
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontFamily: 'Poppins',
@@ -322,7 +331,9 @@ class _historyState extends State<history> {
                                                             width:
                                                                 5), // Menggunakan SizedBox untuk memberikan jarak antara ikon dan teks
                                                         Text(
-                                                          snapshot.data['data'][index]['tanggal'],
+                                                          snapshot.data['data']
+                                                                  [index]
+                                                              ['tanggal'],
                                                           style: TextStyle(
                                                             color: Colors.white,
                                                             fontFamily:
@@ -352,7 +363,10 @@ class _historyState extends State<history> {
                                                                   width:
                                                                       3), // Menggunakan SizedBox untuk memberikan jarak antara ikon dan teks
                                                               Text(
-                                                                snapshot.data['data'][index]['status'],
+                                                                snapshot.data[
+                                                                            'data']
+                                                                        [index]
+                                                                    ['status'],
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors
@@ -402,14 +416,20 @@ class _historyState extends State<history> {
                                                           top: 8),
                                                       child: Column(
                                                         children: [
-                                                          GestureDetector(onTap: () {
-                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => Edit()));
-                                                          },
+                                                          GestureDetector(
+                                                            // onTap: () {
+                                                            //   Navigator.push(
+                                                            //       context,
+                                                            //       MaterialPageRoute(
+                                                            //           builder:
+                                                            //               (context) =>
+                                                            //                   Edit()));
+                                                            // },
                                                             child: Text(
                                                               "Update",
                                                               style: TextStyle(
-                                                                color:
-                                                                    Colors.white,
+                                                                color: Colors
+                                                                    .white,
                                                                 fontFamily:
                                                                     'Poppins',
                                                                 fontSize: 14,
@@ -443,23 +463,24 @@ class _historyState extends State<history> {
                                                                   top: 6),
                                                           child: Column(
                                                             children: [
-                                                              GestureDetector(onTap: (){
-                                                                  // deleteProduct(snapshot.data['data'][index]['id'].toString()).then((value){
-                                                                  //   setState(() {
-                                                                      
-                                                                  //   });
-                                                                  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('product berhasi; dihapus'),));
-                                                                  // });
-                                                              },
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                              
+                                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(data: snapshot.data['data'][index])));
+
+                                                                   
+                                                        
+                                                                },
                                                                 child: Text(
-                                                                  "Delete",
+                                                                  "Detail",
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
                                                                         .white,
                                                                     fontFamily:
                                                                         'Poppins',
-                                                                    fontSize: 14,
+                                                                    fontSize:
+                                                                        14,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,

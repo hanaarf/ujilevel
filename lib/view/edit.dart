@@ -4,10 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:ujilevel/view/history.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
 
 class Edit extends StatefulWidget {
-  const Edit({super.key});
-
+  final Map data;
+  Edit({super.key, required this.data});
   @override
   State<Edit> createState() => _EditState();
 }
@@ -15,19 +16,11 @@ class Edit extends StatefulWidget {
 class _EditState extends State<Edit> {
   // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-
   String? selectedValue; // Use Str
   TextEditingController _date = TextEditingController();
 
-  
-
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _deskripsiController = TextEditingController();
-  TextEditingController _jeniskonseling_idController = TextEditingController();
-  TextEditingController _siswa_idController = TextEditingController();
-  TextEditingController _gurubk_idController = TextEditingController();
-  TextEditingController _walas_idController = TextEditingController();
-  TextEditingController _statusController = TextEditingController();
+
   TextEditingController _tanggalController = TextEditingController();
   TextEditingController _jamController = TextEditingController();
   TextEditingController _tempatController = TextEditingController();
@@ -35,29 +28,25 @@ class _EditState extends State<Edit> {
 
   late SharedPreferences preferences;
   Future saveProduct() async {
-      preferences = await SharedPreferences.getInstance();
-      int userId = preferences.getInt('user_id') ??
-      0;
+    preferences = await SharedPreferences.getInstance();
+    int userId = preferences.getInt('user_id') ?? 0;
 
-      String id = userId.toString();
-
-    final response = await http.post(
-      Uri.parse("http://127.0.0.1:8000/api/auth/store"), body: {
-      "id_siswa": id,
-      "deskripsi": _deskripsiController.text,
-      'jeniskonseling_id': _selectedJenisKonseling.toString(),
-      // "siswa_id": _siswa_idController.text,
-      // "gurubk_id": _gurubk_idController.text,
-      // "walas_id": _walas_idController.text,
+    final response = await http
+        .post(Uri.parse("http://127.0.0.1:8000/api/jadwal/edit"), body: {
+      'id': widget.data['id'].toString(),
       "tanggal": _date.text,
       "jam": _jamController.text,
       "tempat": _tempatController.text,
     });
-
-    return json.decode(response.body);
+    final responses = jsonDecode(response.body);
+    if (responses['status'] == 200) {
+      Navigator.pop(context);
+    }
   }
+
   @override
   Widget build(BuildContext context) {
+    final format = DateFormat('yyyy-MM-dd');
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -104,98 +93,19 @@ class _EditState extends State<Edit> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(left: 35, right: 35),
-                    child: TextFormField(
-                      controller: _deskripsiController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            // enabledBorder: UnderlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 3,
-                                color: Color(0xffBFD1DD)), //<-- SEE HERE
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            // enabledBorder: UnderlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 3,
-                                color: Color(0xffBFD1DD)), //<-- SEE HERE
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          labelText: 'Deskripsi',
-                          hintStyle: const TextStyle(
-                              color: Color(0xff454545),
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500)),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "masukan tesk";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                 
-                  const SizedBox(height: 20.0),
-                  Container(
-                     padding: const EdgeInsets.only(left: 35, right: 35, top: 5),
-                    child: DropdownButtonFormField<int>(
-                      value: _selectedJenisKonseling,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedJenisKonseling = value!;
-                        });
-                      },
-                      items: [
-                        DropdownMenuItem<int>(
-                          value: 1,
-                          child: Text('Bimbingan Pribadi'),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: 2,
-                          child: Text('Bimbingan Sosial'),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: 3,
-                          child: Text('Bimbingan Karir'),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: 4,
-                          child: Text('Bimbingan Belajar'),
-                        ),
-                      ],
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          // enabledBorder: UnderlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 3, color: Color(0xffBFD1DD)), //<-- SEE HERE
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          // enabledBorder: UnderlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 3, color: Color(0xffBFD1DD)), //<-- SEE HERE
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                        labelText: 'Counseling',
-                      ),
-                      onSaved: (value) {
-                        _selectedJenisKonseling = value!;
-                      },
-                      validator: (value) {
-                        if (value == null) {
-                          return 'Pilih jenis konseling';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-
-                  Container(
                     padding:
                         const EdgeInsets.only(left: 35, right: 35, top: 20),
-                    child: TextField(
-                      controller: _date,
+                    child: DateTimeField(
+                      format: format,
+                      onShowPicker: (context, currentValue) async {
+                        final date = showDatePicker(
+                            context: context,
+                            initialDate: currentValue ?? DateTime.now(),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(2100));
+                        return date;
+                      },
+                      controller: _date..text = widget.data['tanggal'],
                       decoration: InputDecoration(
                         labelText: "select date",
                         focusedBorder: OutlineInputBorder(
@@ -213,27 +123,13 @@ class _EditState extends State<Edit> {
                           borderRadius: BorderRadius.circular(50.0),
                         ),
                       ),
-                      onTap: () async {
-                        DateTime? pickeddate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101));
-
-                        if (pickeddate != null) {
-                          setState(() {
-                            _date.text =
-                                DateFormat('yyyy-MM-dd').format(pickeddate);
-                          });
-                        }
-                      },
                     ),
                   ),
                   Container(
                     padding:
                         const EdgeInsets.only(left: 35, right: 35, top: 20),
                     child: TextFormField(
-                      controller: _jamController,
+                      controller: _jamController..text = widget.data['jam'],
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             // enabledBorder: UnderlineInputBorder(
@@ -266,7 +162,8 @@ class _EditState extends State<Edit> {
                     padding:
                         const EdgeInsets.only(left: 35, right: 35, top: 20),
                     child: TextFormField(
-                      controller: _tempatController,
+                      controller: _tempatController
+                        ..text = widget.data['tempat'],
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             // enabledBorder: UnderlineInputBorder(
@@ -295,7 +192,6 @@ class _EditState extends State<Edit> {
                       },
                     ),
                   ),
-
                   Container(
                     padding:
                         const EdgeInsets.only(left: 20, right: 20, top: 50),

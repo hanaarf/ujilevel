@@ -42,6 +42,8 @@ dependencies:
   calendar_date_picker2: ^0.5.2
   intl: ^0.18.1
   table_calendar: ^3.0.9
+  google_fonts: ^4.0.4
+  datetime_picker_formfield_new: ^2.1.0
 
 dev_dependencies:
   flutter_test:
