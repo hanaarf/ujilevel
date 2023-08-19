@@ -44,6 +44,8 @@ dependencies:
   table_calendar: ^3.0.9
   google_fonts: ^4.0.4
   datetime_picker_formfield_new: ^2.1.0
+  art_sweetalert: ^0.0.5
+
 
 dev_dependencies:
   flutter_test:
