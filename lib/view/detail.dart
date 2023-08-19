@@ -1,8 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ujilevel/view/edit.dart';
+import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:ujilevel/view/history.dart';
+import 'package:http/http.dart' as http;
 
 import '../onboard/utils.dart';
 
@@ -15,6 +21,21 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  late SharedPreferences preferences;
+  Future deleteProduct() async {
+    preferences = await SharedPreferences.getInstance();
+    int userId = preferences.getInt('user_id') ?? 0;
+
+    final response = await http
+        .post(Uri.parse("http://127.0.0.1:8000/api/jadwal/delete"), body: {
+      'id': widget.data['id'].toString(),
+    });
+    final responses = jsonDecode(response.body);
+    if (responses['status'] == 200) {
+      Navigator.push(context, MaterialPageRoute(builder: ((context) => history())));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 390;
@@ -452,7 +473,9 @@ class _DetailPageState extends State<DetailPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Edit(data: widget.data,)));
+                                        builder: (context) => Edit(
+                                              data: widget.data,
+                                            )));
                               },
                               child: Container(
                                 // group133AV7 (1:28)
@@ -478,23 +501,52 @@ class _DetailPageState extends State<DetailPage> {
                                 ),
                               ),
                             ),
-                            Container(
-                              // group134EE5 (1:31)
-                              width: 119 * fem,
-                              height: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Color(0xff082032),
-                                borderRadius: BorderRadius.circular(10 * fem),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Delete',
-                                  style: SafeGoogleFont(
-                                    'Poppins',
-                                    fontSize: 13 * ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5 * ffem / fem,
-                                    color: Color(0xffffffff),
+                            InkWell(
+                              onTap: () async {
+                                ArtDialogResponse response =
+                                    await ArtSweetAlert.show(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        artDialogArgs: ArtDialogArgs(
+                                          showCancelBtn: true,
+                                          title: "Ingin Hapus Jadwal??",
+                                          confirmButtonText: "IYA",
+                                        ));
+
+                                if (response == null) {
+                                  return;
+                                }
+
+                                if (response.isTapConfirmButton) {
+                                  ArtSweetAlert.show(
+                                    context: context,
+                                    artDialogArgs: ArtDialogArgs(
+                                      type: ArtSweetAlertType.success,
+                                      title: "Saved!",
+                                    ),
+                                  );
+
+                                  deleteProduct();
+                                }
+                              },
+                              child: Container(
+                                // group134EE5 (1:31)
+                                width: 119 * fem,
+                                height: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Color(0xff082032),
+                                  borderRadius: BorderRadius.circular(10 * fem),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Cancel',
+                                    style: SafeGoogleFont(
+                                      'Poppins',
+                                      fontSize: 13 * ffem,
+                                      fontWeight: FontWeight.w500,
+                                      height: 1.5 * ffem / fem,
+                                      color: Color(0xffffffff),
+                                    ),
                                   ),
                                 ),
                               ),
